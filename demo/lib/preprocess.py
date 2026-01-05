@@ -1,3 +1,7 @@
+'''
+Path: demo/lib/preprocess.py
+'''
+
 import json
 import numpy as np
 import os

@@ -99,25 +99,6 @@ def get_pose2D(video_path, output_dir):
     np.savez_compressed(output_npz, reconstruction=keypoints)
 
 
-def img2video(video_path, output_dir):
-    cap = cv2.VideoCapture(video_path)
-    fps = int(cap.get(cv2.CAP_PROP_FPS)) + 5
-
-    fourcc = cv2.VideoWriter_fourcc(*"mp4v")
-
-    names = sorted(glob.glob(os.path.join(output_dir + 'pose/', '*.png')))
-    img = cv2.imread(names[0])
-    size = (img.shape[1], img.shape[0])
-
-    videoWrite = cv2.VideoWriter(output_dir + video_name + '.mp4', fourcc, fps, size) 
-
-    for name in names:
-        img = cv2.imread(name)
-        videoWrite.write(img)
-
-    videoWrite.release()
-
-
 def showimage(ax, img):
     ax.set_xticks([])
     ax.set_yticks([]) 
@@ -205,7 +186,6 @@ def get_pose3D(video_path, output_dir):
 
         output_3D[:, :, 0, :] = 0
         post_out = output_3D[0, 0].cpu().detach().numpy()
-
         output_3d_all.append(post_out)
 
         rot =  [0.1407056450843811, -0.1500701755285263, -0.755240797996521, 0.6223280429840088]
@@ -294,7 +274,6 @@ if __name__ == "__main__":
 
     get_pose2D(video_path, output_dir)
     get_pose3D(video_path, output_dir)
-    # img2video(video_path, output_dir)
-    print('Generating demo successful!')
+    print('Done!')
 
 
